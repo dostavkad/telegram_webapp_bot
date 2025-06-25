@@ -1,7 +1,9 @@
+runtime: python
+
 services:
   - type: web
     name: telegram_webapp_bot
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python bot.py"
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: python bot.py
     pythonVersion: 3.10
