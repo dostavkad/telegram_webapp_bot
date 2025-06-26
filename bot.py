@@ -248,7 +248,7 @@ async def forward_to_operator(message: types.Message):
 
 if __name__ == "__main__":
     from aiogram import executor
-    from handlers import dp
+    from handlers import dp  # ❌ удалить это
 
     async def on_startup(dp):
         await bot.set_webhook(WEBHOOK_URL)
