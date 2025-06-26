@@ -15,6 +15,7 @@ from aiogram.utils.callback_data import CallbackData
 from aiogram.utils import executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
+
 # ✅ Загружаем переменные окружения
 load_dotenv()
 API_TOKEN = os.getenv("API_TOKEN")
