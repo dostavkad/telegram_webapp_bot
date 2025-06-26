@@ -247,11 +247,8 @@ async def forward_to_operator(message: types.Message):
 
 
 if __name__ == "__main__":
-    from aiogram import executor
-    from handlers import dp  # ❌ удалить это
-
     async def on_startup(dp):
-        await bot.set_webhook(WEBHOOK_URL)
+        await bot.set_webhook(os.getenv("WEBHOOK_URL", "https://telegram-webapp-bot-vhk8.onrender.com"))
 
     async def on_shutdown(dp):
         await bot.delete_webhook()
@@ -262,7 +259,7 @@ if __name__ == "__main__":
         on_startup=on_startup,
         on_shutdown=on_shutdown,
         skip_updates=True,
-        host="0.0.0.0",  # Render требует это!
-        port=int(os.environ.get("PORT", 8080))  # Render сам задаёт PORT
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8080))
     )
 
