@@ -245,9 +245,24 @@ async def forward_to_operator(message: types.Message):
     except Exception as e:
         logging.error(f"Ошибка при пересылке сообщения оператору: {e}")
 
-if __name__ == '__main__':
-        import asyncio
-        with suppress(Exception):
-            asyncio.get_event_loop().run_until_complete(send_daily_report.__wrapped__())
-        executor.start_polling(dp, skip_updates=True)
+
+if __name__ == "__main__":
+    from aiogram import executor
+    from handlers import dp
+
+    async def on_startup(dp):
+        await bot.set_webhook(WEBHOOK_URL)
+
+    async def on_shutdown(dp):
+        await bot.delete_webhook()
+
+    executor.start_webhook(
+        dispatcher=dp,
+        webhook_path="/",
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        skip_updates=True,
+        host="0.0.0.0",  # Render требует это!
+        port=int(os.environ.get("PORT", 8080))  # Render сам задаёт PORT
+    )
 
